@@ -1,0 +1,15 @@
+-- CreateTable
+CREATE TABLE "Candle" (
+    "id" SERIAL NOT NULL,
+    "symbol" TEXT NOT NULL,
+    "timeframe" TEXT NOT NULL,
+    "timestamp" TIMESTAMP(3) NOT NULL,
+    "open" DOUBLE PRECISION NOT NULL,
+    "high" DOUBLE PRECISION NOT NULL,
+    "low" DOUBLE PRECISION NOT NULL,
+    "close" DOUBLE PRECISION NOT NULL,
+    "volume" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Candle_pkey" PRIMARY KEY ("id")
+);
