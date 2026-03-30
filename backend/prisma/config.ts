@@ -13,4 +13,10 @@ const adapter = new PrismaPg(pool);
 // Construct Prisma client with adapter
 const prisma = new PrismaClient({ adapter });
 
-export default prisma;
+// export default prisma;
+
+export default {
+  datasource: {
+    url: process.env.DATABASE_URL,
+  },
+};

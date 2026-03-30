@@ -1,3 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
+}
+
+model Candle {
+  id        Int      @id @default(autoincrement())
+  symbol    String
+  timeframe String
+  timestamp DateTime
+  open      Float
+  high      Float
+  low       Float
+  close     Float
+  volume    Float
+  createdAt DateTime @default(now())
+
+  @@index([symbol, timeframe, timestamp])
 }
