@@ -1,45 +1,32 @@
-export interface BollingerBand {
-  timestamp: Date
-  sma: number
-  upper: number
-  lower: number
-}
+export const calculateBollingerBands = (
+  candles: any[],
+  period = 20,
+  multiplier = 2
+) => {
+  const result = [];
 
-export function calculateBollingerBands(
-  closes: number[],
-  timestamps: Date[],
-  period: number = 20,
-  multiplier: number = 2
-): BollingerBand[] {
+  const closes = candles.map(c => c.close);
 
-  const result: BollingerBand[] = []
+  for (let i = 0; i < closes.length; i++) {
+    if (i < period - 1) continue;
 
-    for (let i = period - 1; i < closes.length; i++) {
-
-    const slice = closes.slice(i - period + 1, i + 1)
+    const slice = closes.slice(i - period + 1, i + 1);
 
     const mean =
-        slice.reduce((sum, val) => sum + val, 0) / period
+      slice.reduce((sum, val) => sum + val, 0) / period;
 
     const variance =
-        slice.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / period
+      slice.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / period;
 
-    const std = Math.sqrt(variance)
-
-    const upper = mean + multiplier * std
-    const lower = mean - multiplier * std
-
-    const timestamp = timestamps[i]
-
-    if (!timestamp) continue
+    const stdDev = Math.sqrt(variance);
 
     result.push({
-        timestamp,
-        sma: mean,
-        upper,
-        lower
-    })
-    }
+      timestamp: candles[i].timestamp,
+      middle: mean,
+      upper: mean + multiplier * stdDev,
+      lower: mean - multiplier * stdDev,
+    });
+  }
 
-  return result
-}
+  return result;
+};

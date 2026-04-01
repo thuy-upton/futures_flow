@@ -1,8 +1,8 @@
-import express from "express"
-import { fetchBollingerBands } from "../controllers/indicatorController"
+import { Router } from "express";
+import { getBollingerBands } from "../controllers/indicatorController";
 
-const router = express.Router()
+const router = Router();
 
-router.get("/bollinger", fetchBollingerBands)
+router.get("/bollinger", getBollingerBands);
 
-export default router
+export default router;
